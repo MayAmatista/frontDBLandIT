@@ -1,37 +1,49 @@
-import { Card } from "@mui/material";
-import React from "react";
+import { Button, Card } from "@mui/material";
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-export class StudentsList extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            students: []
-        }
-    }
-    componentDidMount() {
-        const url = 'http://localhost:4000/courses/:id/students';
+export const StudentsList = (props) => {
+    const [students, setStudents] = useState([]);
+    let { id } = useParams();
 
+    useEffect(() => {
+        const url = `http://localhost:4000/courses/${id}/students`;
         fetch(url)
             .then(response => response.json())
-            .then(students => this.setState({ students }))
-            .then(console.log)
-            .catch(err => console.log(err));
+            .then((students) => {
+                setStudents(students)
+            })
+            .catch(error => console.log(error))
+    }, [id])
+
+    function deleteStudent(studentId){
+        const url = `http://localhost:4000/courses/${id}/students/${studentId}`;
+
+        fetch(url, {
+            method: 'DELETE'
+        })
+        .then(() => window.location.reload())
     }
 
-    render() {
-        const studentsList = this.state.students.map(student => (
-            <Student key={student.id} value={student}> </Student>
-          ))
-        return (
-            <div>
-                {studentsList}
-            </div>
-        );
-    }
+    const studentsList = students.map(student => (
+        <div>
+            <Button onClick= {() => deleteStudent(student._id)}>
+                -
+            </Button>
+            <Student key={student._id} value={student}> </Student>
+        </div>
+    ))
+
+    return studentsList.length ? (
+        <div> {studentsList} </div>
+    ) : (
+        <h3> No hay estudiantes en este curso </h3>
+    );
+
 }
 
-const Student = (props) => {
-    return(
+export const Student = (props) => {
+    return (
         <Card>
             <h2>Nombre: {props.value.name}</h2>
             <h2>Apellido: {props.value.lastName}</h2>
@@ -41,3 +53,4 @@ const Student = (props) => {
         </Card>
     )
 }
+

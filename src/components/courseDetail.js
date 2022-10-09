@@ -1,6 +1,6 @@
-import { Box, Button, Card, CardActions, CardContent, Typography } from '@mui/material';
+import { Box, Button, CardActions, CardContent, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 
 export const CourseDetailComponent = (props) => {
@@ -33,6 +33,13 @@ export const CourseDetailComponent = (props) => {
                         <br />
                     </Typography>
                 </CardContent>
+                <CardActions>
+                <Button size="small">
+                    <Link to= {`/courses/${id}/students`}>
+                        Ver lista de estudiantes
+                    </Link>
+                </Button>
+            </CardActions>
             </React.Fragment>
         </Box>
 
