@@ -1,10 +1,9 @@
-import { DockOutlined } from "@mui/icons-material";
 import { Button, MenuItem, Select } from "@mui/material";
 
 
 export const FilterBar = (props) => {
-    const years = props.courses.map(course => course.yearOfDictation);
-    const themes = props.courses.map(course => course.theme);
+    const years = [...new Set(props.courses.map(course => course.yearOfDictation))];
+    const themes = [...new Set(props.courses.map(course => course.theme))];
 
     const yearsList = getMenuItems(years);
     const themesList = getMenuItems(themes);

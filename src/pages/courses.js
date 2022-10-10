@@ -6,7 +6,7 @@ import { FilterBar } from "../components/filterBar";
 
 
 export const Courses = (props) => {
-    const [search, setSearch] = useState({});
+    const [search] = useState({});
     const [searchQuery, setSearchQuery] = useState("");
     const [allCourses, setAllCourses] = useState([]);
     //nav con filtros
