@@ -1,5 +1,6 @@
+import { Box, Button, TextField } from "@mui/material";
 import React from "react"
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export const NewStudentForm = (props) => {
     const navigate = useNavigate();
@@ -24,31 +25,58 @@ export const NewStudentForm = (props) => {
     
 
     return (
-        <form id="newStudent" onSubmit={handleSubmit}>
-
-            <fieldset>
-                <input id="name" placeholder="Nombre" type="text" name="name" required />
-            </fieldset>
-
-            <fieldset>
-                <input id="lastName" placeholder="Apellido" type="text" name="lastName" required />
-            </fieldset>
-
-            <fieldset>
-                <input id="dni" placeholder="DNI" type="number" name="dni" required />
-            </fieldset>
-
-            <fieldset>
-                <input id="adress" placeholder="Dirección" type="text" name="adress" required />
-            </fieldset>
-
-            <fieldset>
-                <input id="note" placeholder="Nota" type="note" name="note" required />
-            </fieldset>
-
-            <fieldset>
-                <button type="submit" name="submit">Enviar</button>
-            </fieldset>
-        </form>
+        <Box
+            id="newStudent"
+            onSubmit={handleSubmit}
+            component="form"
+            display="grid"
+            gridTemplateColumns="repeat(5, 4fr)"
+            gap={2}
+            alignItems="center"
+            justifyContent="center">
+            <div>
+                <TextField
+                    required
+                    id="name"
+                    label="Nombre"
+                    type="text"
+                    name="name"/>
+                <TextField
+                    required
+                    id="lastName"
+                    label="Apellido"
+                    type="text"
+                    name="lastName"/>
+                <TextField
+                    required
+                    id="dni"
+                    label="DNI"
+                    type="number"
+                    name="dni"/>
+                <TextField
+                    required
+                    id="adress"
+                    label="Dirección"
+                    type="text"
+                    name="adress"/>
+                <TextField
+                    required
+                    id="note"
+                    label="Nota"
+                    type="number"
+                    name="note"/>
+                <Button
+                    type="submit"
+                    name="submit">
+                    Enviar
+                </Button>
+                <Button
+                    component={Link} to={`courses/${id}/students`}
+                    type="submit"
+                    name="submit">
+                    Cancelar
+                </Button>
+            </div>
+        </Box>
     )
 }

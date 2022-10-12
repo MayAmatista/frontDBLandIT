@@ -30,7 +30,11 @@ export const StudentsList = (props) => {
             {studentsList} 
         </Grid>
     ) : (
-        <h3> No hay estudiantes en este curso </h3>
+        <Typography
+            variant="h6"
+            color="secondary">
+            No hay estudiantes en este curso
+        </Typography>
     );
 
 }

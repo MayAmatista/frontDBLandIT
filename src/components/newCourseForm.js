@@ -33,30 +33,26 @@ export const NewCourseForm = (props) => {
             gridTemplateColumns="repeat(5, 4fr)"
             gap={2}
             alignItems="center"
-            justifyContent="center"
-        >
+            justifyContent="center">
             <div>
                 <TextField
                     required
                     id="yearOfDictation"
                     label="Año"
                     type="number"
-                    name="yearOfDictation"
-                />
+                    name="yearOfDictation"/>
                 <TextField
                     required
                     id="duration"
                     label="Duración"
                     type="text"
-                    name="duration"
-                />
+                    name="duration"/>
                 <TextField
                     required
                     id="theme"
                     label="Tema"
                     type="text"
-                    name="theme"
-                />
+                    name="theme"/>
                 <Button
                     type="submit"
                     name="submit">
@@ -68,7 +64,6 @@ export const NewCourseForm = (props) => {
                     name="submit">
                     Cancelar
                 </Button>
-
             </div>
         </Box>
     )
