@@ -1,10 +1,13 @@
-import { Button, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select } from "@mui/material";
+import { Button, FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import { Link } from "react-router-dom";
-
+import { useState } from "react";
 
 export const FilterBar = (props) => {
+    const [year, setYear] = useState("");
+    const [theme, setTheme] = useState("");
+
     const years = [...new Set(props.courses.map(course => course.yearOfDictation))];
     const themes = [...new Set(props.courses.map(course => course.theme))];
 
@@ -13,24 +16,21 @@ export const FilterBar = (props) => {
 
     function getMenuItems(elements) {
         return elements.map(element => (
-            <MenuItem value={element}>
+            <MenuItem key={element} value={element}>
                 {element}
             </MenuItem>))
     }
 
-    const handleChange = (property, event) => {
-        let search = {};
-        search[property] = event.target.value;
-        props.onSearch(search);
+    const handleChange = (property, event, setProperty) => {
+        let value = event.target.value;
+        props.onSearch({[property]: value});
+        setProperty(value);
     }
 
     const cleanSearch = (event) => {
         props.onClean();
-        let selects = document.getElementsByClassName("selector");
-        for (let select of selects) {
-            //select.getElementsByTagName('div')[0].innerText = null;
-            window.selector = select;
-        }
+        setTheme("");
+        setYear("");
     }
 
     return (
@@ -52,7 +52,8 @@ export const FilterBar = (props) => {
                     <InputLabel id="demo-simple-select-label">Filtrar tema</InputLabel>
                     <Select
                         label='Filtrar tema'
-                        onChange={(e) => handleChange("theme", e)}>
+                        onChange={(e) => handleChange("theme", e, setTheme)}
+                        value={theme}>
                         {themesList}
                     </Select>
                 </FormControl>
@@ -60,7 +61,8 @@ export const FilterBar = (props) => {
                     <InputLabel id="demo-simple-select-label">Filtrar año</InputLabel>
                     <Select
                         label='Filtrar año'
-                        onChange={(e) => handleChange("yearOfDictation", e)}>
+                        onChange={(e) => handleChange("yearOfDictation", e, setYear)}
+                        value={year}>
                         {yearsList}
                     </Select>
                 </FormControl>

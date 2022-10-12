@@ -71,7 +71,7 @@ export const NewStudentForm = (props) => {
                     Enviar
                 </Button>
                 <Button
-                    component={Link} to={`courses/${id}/students`}
+                    component={Link} to={`/courses/${id}/students`}
                     type="submit"
                     name="submit">
                     Cancelar
