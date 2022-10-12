@@ -1,8 +1,9 @@
-import { Box, Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { CoursesList } from "../components/coursesList";
 import { FilterBar } from "../components/filterBar";
+import AddIcon from '@mui/icons-material/Add';
 
 
 export const Courses = (props) => {
@@ -11,23 +12,41 @@ export const Courses = (props) => {
     const [allCourses, setAllCourses] = useState([]);
     //nav con filtros
     //botón cerrar sesión
+
     function addSearch(searchField) {
         Object.assign(search, searchField);
         setSearchQuery(new URLSearchParams(search).toString());
     }
 
     return (
-        <Box>
-            <main>
-                <FilterBar courses={allCourses} onSearch={addSearch} onClean={() => setSearchQuery("")}/>
-                <Button>
-                    <Link to='/courses/newCourse'>
-                        +
-                    </Link>
-                </Button>
-                <CoursesList setCourses={setAllCourses} searchQuery={searchQuery}/>
-            </main>
-
-        </Box>
+        <main>
+            <Grid
+                container
+                rowSpacing={5} 
+                direction="column"
+                alignItems="center"
+            >
+                <Grid
+                    item>
+                    <FilterBar courses={allCourses} onSearch={addSearch} onClean={() => setSearchQuery("")} />
+                </Grid>
+                <Grid
+                    item>
+                    <CoursesList setCourses={setAllCourses} searchQuery={searchQuery} />
+                </Grid>
+                <Grid
+                    item>
+                    <Button
+                        label="nuevo curso"
+                        size="small"
+                        component={Link} to='/courses/newCourse'>
+                        <AddIcon />
+                        Agregar curso
+                    </Button>
+                </Grid>
+            </Grid>
+        </main>
     );
 }
+
+

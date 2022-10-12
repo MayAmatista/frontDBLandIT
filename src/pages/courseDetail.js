@@ -1,12 +1,14 @@
-import { Button } from '@mui/material';
-import { Box } from '@mui/system';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Button, Grid } from '@mui/material';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { CourseDetailComponent } from '../components/courseDetail';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+
 
 
 export const CourseDetail = (props) => {
     const navigate = useNavigate();
-    const {id} = useParams();
+    const { id } = useParams();
     //tachito borrar curso
     function deleteCourse() {
         const url = `http://localhost:4000/courses/${id}`;
@@ -14,16 +16,38 @@ export const CourseDetail = (props) => {
         fetch(url, {
             method: 'DELETE',
         })
-        .then(() => navigate('/courses'))
+            .then(() => navigate('/courses'))
     }
 
     return (
-        <Box>
-            <CourseDetailComponent></CourseDetailComponent>
-            <Button onClick={deleteCourse}>
-                -
-            </Button>
-        </Box>
+        <Grid
+            container
+            direction="column"
+            justifyContent="space-between"
+            alignItems="center"
+        >
+            <Grid
+                container
+                direction="row"
+                justifyContent="space-between"
+                alignItems="flex-start"
+            >
+                <Button component={Link} to='/courses'>
+                    <ArrowBackOutlinedIcon />
+                    Volver
+                </Button>
+
+                <Button
+                    size="small"
+                    onClick={deleteCourse}
+                >
+                    Borrar curso
+                    <DeleteIcon />
+                </Button>
+            </Grid>
+            <CourseDetailComponent />
+        </Grid>
+
     )
 
 }

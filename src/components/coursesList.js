@@ -1,3 +1,4 @@
+import { Grid } from "@mui/material";
 import React from "react";
 import Course from "./course"
 
@@ -15,7 +16,7 @@ export class CoursesList extends React.Component {
         fetch(url)
             .then(response => response.json())
             .then((courses) => {
-                this.setState({courses: courses});
+                this.setState({ courses: courses });
                 callback(courses);
             })
             .catch(err => console.log(err));
@@ -27,7 +28,7 @@ export class CoursesList extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.searchQuery !== this.props.searchQuery) {
-            this.getCourses()
+            this.getCourses(() => {});
         }
     }
 
@@ -36,9 +37,13 @@ export class CoursesList extends React.Component {
             <Course className='course' key={course.id} value={course}></Course>
         ))
         return (
-            <div>
-                {coursesList}
-            </div>
+            <Grid 
+                container
+                spacing={5} 
+                direction="column"
+                alignItems="center">
+                { coursesList }
+            </Grid>
         );
     }
 }

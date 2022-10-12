@@ -1,5 +1,6 @@
+import { Box, Button, TextField } from "@mui/material";
 import React from "react"
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const NewCourseForm = (props) => {
     const navigate = useNavigate();
@@ -17,30 +18,58 @@ export const NewCourseForm = (props) => {
             },
             body: JSON.stringify(value)
         })
-        .then((data) => data.json())
-        .then((course) => navigate(`/courses/${course._id}`))
+            .then((data) => data.json())
+            .then((course) => navigate(`/courses/${course._id}`))
     }
 
-    
+
 
     return (
-        <form id="newCourse" onSubmit={handleSubmit}>
+        <Box
+            id="newCourse"
+            onSubmit={handleSubmit}
+            component="form"
+            display="grid"
+            gridTemplateColumns="repeat(5, 4fr)"
+            gap={2}
+            alignItems="center"
+            justifyContent="center"
+        >
+            <div>
+                <TextField
+                    required
+                    id="yearOfDictation"
+                    label="Año"
+                    type="number"
+                    name="yearOfDictation"
+                />
+                <TextField
+                    required
+                    id="duration"
+                    label="Duración"
+                    type="text"
+                    name="duration"
+                />
+                <TextField
+                    required
+                    id="theme"
+                    label="Tema"
+                    type="text"
+                    name="theme"
+                />
+                <Button
+                    type="submit"
+                    name="submit">
+                    Enviar
+                </Button>
+                <Button
+                    component={Link} to={`/courses`}
+                    type="submit"
+                    name="submit">
+                    Cancelar
+                </Button>
 
-            <fieldset>
-                <input id="yearOfDictation" placeholder="Año" type="number" name="yearOfDictation" required />
-            </fieldset>
-
-            <fieldset>
-                <input id="duration" placeholder="Duración" type="text" name="duration" required />
-            </fieldset>
-
-            <fieldset>
-                <input id="theme" placeholder="Tema" type="text" name="theme" required />
-            </fieldset>
-
-            <fieldset>
-                <button type="submit" name="submit">Enviar</button>
-            </fieldset>
-        </form>
+            </div>
+        </Box>
     )
 }

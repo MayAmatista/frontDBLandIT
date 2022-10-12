@@ -1,40 +1,53 @@
-import { Button, TextField } from '@mui/material';
-import { Box } from '@mui/system';
+import { Button, Grid, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PersonIcon from '@mui/icons-material/Person';
+import LockIcon from '@mui/icons-material/Lock';
 
 export class LoginForm extends React.Component {
 
   render() {
     return (
-      <Box
-        component="form"
-        sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
-        }}
-        autoComplete="off"
-      >
-        <div>
+      <Grid
+        marginTop={10}
+        container
+        direction="column"
+        alignItems="center"
+        justify="center"
+        spacing={5}>
+        <Typography 
+          variant="h2" 
+          color="primary" 
+          component="div">
+          Iniciar sesión
+        </Typography>
+        <Grid item xs={12}>
+        <PersonIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }}/>
           <TextField
-            required
-            id="outlined-required"
-            label="Usuario"
-          />
-
-          <TextField
-            required
-            id="outlined-password-input"
-            label="Contraseña"
-            type="password"
-            autoComplete="current-password"
-          />
-        </div>
-        <Button color="primary" variant="outlined" href="#outlined-buttons">
-          <Link to='/courses'>Enviar</Link>
-        </Button>
-      </Box>
-    );
+            id="username"
+            name="username"
+            label="Usuario">
+          </TextField>
+          </Grid>
+          <Grid item xs={12}>
+            <LockIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }}/>
+            <TextField
+              id="password"
+              name="password"
+              label="Contraseña"
+              type="password"/>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              variant="outlined"
+              type="submit"
+              fullWidth
+              component={Link} to="/courses">
+              Ingresar
+            </Button>
+          </Grid>
+        </Grid>
+        );
   }
-      
-
 }
+
